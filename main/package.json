@@ -1,0 +1,37 @@
+{
+  "name": "main-socar-test-layer",
+  "version": "1.0.0",
+  "description": "Socar test main layer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:drop": "node project/db/db_remover.js",
+    "migrate": "knex migrate:latest --cwd ./project",
+    "rollback": "knex migrate:rollback --all --cwd ./project",
+    "seed": "knex seed:run --cwd ./project"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@socar/socar-test": "./project",
+    "aws-sdk": "^2.794.0",
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-status-codes": "^2.1.4",
+    "json-api-serializer": "^2.6.0",
+    "knex": "^0.21.12",
+    "lodash": "^4.17.20",
+    "objection": "^2.2.3",
+    "pg": "^8.5.1",
+    "serverless-http": "^2.6.0",
+    "uuid": "^8.3.1"
+  },
+  "keywords": [],
+  "author": "Nisali Kularatne",
+  "license": "ISC",
+  "devDependencies": {
+    "faker": "^5.1.0",
+    "nock": "^13.0.5"
+  }
+}

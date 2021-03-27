@@ -1,0 +1,35 @@
+version: 0.2
+env:
+  git-credential-helper: yes
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      #      - npm i -g mocha
+      - npm i -g serverless
+      #      - npm i -g eslint
+      - npm i -g knex
+  pre_build:
+    commands:
+      # the next command to install required dev packages for serverless in production
+      - echo "using environment $NODE_ENV"
+      - npm install --only=dev
+      - npm run resolve
+  build:
+    commands:
+      - serverless create_domain
+      - sls deploy
+      #post_build:
+      #commands:
+      # - command
+    #artifacts:
+    #files:
+    # - location
+    # - location
+    #name: $(date +%Y-%m-%d)
+    #discard-paths: yes
+    #base-directory: location
+    #cache:
+    #paths:
+    # - paths

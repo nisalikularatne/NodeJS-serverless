@@ -1,0 +1,11 @@
+testing:
+  region: eu-west-1
+  vpc:
+    securityGroupIds:
+    subnetIds:
+  role_arn: arn:aws:iam::045197977521:role/testing-role
+  domainName: socar.eu-west-1.cloud
+  bucketName: initial-bucket-deployment
+  HB_KEY: 5a18da1a
+  WEBACL_ID: 341a968f-dc11-41e5-9ef7-62e11ce4fdea
+  HOSTED_ZONE_ID: Z1ZS7780QHMT67

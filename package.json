@@ -1,0 +1,45 @@
+{
+  "name": "socar",
+  "version": "1.0.5",
+  "description": "A service to manage car marketplace API's",
+  "main": "index.js",
+  "scripts": {
+    "test": "export NODE_PATH=\"${PWD}/main/node_modules\" && cd main/project && mocha 'test/**/**.test.js' --timeout 10000  --exit",
+    "offline": "export NODE_PATH=\"${PWD}/main/node_modules\" && serverless offline start -o 0.0.0.0",
+    "server": "export NODE_PATH=\"${PWD}/main/node_modules\" && node main/project/web/www.js",
+    "dev": "export NODE_PATH=\"${PWD}/main/node_modules\" && nodemon main/project/web/www.js",
+    "migrate": "cd main && npm run migrate",
+    "rollback": "cd main && npm run rollback",
+    "seed": "cd main && npm run seed",
+    "reset": "npm run rollback && npm run migrate",
+    "resolve": "npm i && cd main && npm i",
+    "lint": "eslint ."
+  },
+  "author": "Nisali Kularatne",
+  "license": "ISC",
+  "devDependencies": {
+    "@socar/socar-test": "./main/project",
+    "serverless-plugin-aws-alerts": "^1.6.1",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "chai-arrays": "^2.2.0",
+    "chai-sorted": "^0.2.0",
+    "eslint": "^7.13.0",
+    "husky": "^4.3.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "serverless-domain-manager": "^5.1.0",
+    "serverless-dotenv-plugin": "^3.1.0",
+    "serverless-offline": "^6.8.0",
+    "serverless-plugin-scripts": "^1.0.2",
+    "sinon": "^9.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm t"
+    }
+  },
+  "engines": {
+    "node": ">=0.12"
+  }
+}

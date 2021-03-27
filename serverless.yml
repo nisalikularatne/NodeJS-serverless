@@ -1,0 +1,93 @@
+service: "socar-test"
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+
+custom:
+  serverless-offline:
+    httpPort: ${env:PORT, 8007}
+    noPrependStageInUrl: true
+
+  scripts:
+    hooks:
+      "deploy:finalize": sls invoke -f migrations
+
+provider:
+  name: aws
+  region: ${file(./serverless_variables/stacks_config.yml):${env:STACK_ID}.region}
+  role: ${file(./serverless_variables/stacks_config.yml):${env:STACK_ID}.role_arn}
+  runtime: nodejs12.x
+  stage: ${env:NODE_ENV,'production'}
+  timeout: 20 #Default Lambda timeout
+  versionFunctions: false
+  memorySize: 2048 #Default Lambda Memory Size
+  deploymentBucket: ${file(./serverless_variables/stacks_config.yml):${env:STACK_ID}.bucketName}
+  logRetentionInDays: 30
+  environment:
+    # Dev DB config
+    DEV_DB_CLIENT: ${env:DEV_DB_CLIENT}
+    DEV_DB_HOST: ${env:DEV_DB_HOST}
+    DEV_DB_NAME: ${env:DEV_DB_NAME}
+    DEV_DB_USER: ${env:DEV_DB_USER}
+    DEV_DB_PASSWORD: ${env:DEV_DB_PASSWORD}
+    DEV_DB_MIN_POOL: ${env:DEV_DB_MIN_POOL}
+    DEV_DP_MAX_POOL: ${env:DEV_DP_MAX_POOL}
+    # Staging DB config
+    STAGING_DB_CLIENT: ${env:STAGING_DB_CLIENT}
+    STAGING_DB_HOST: ${env:STAGING_DB_HOST}
+    STAGING_DB_NAME: ${env:STAGING_DB_NAME}
+    STAGING_DB_USER: ${env:STAGING_DB_USER}
+    STAGING_DB_PASSWORD: ${env:STAGING_DB_PASSWORD}
+    STAGING_DB_MIN_POOL: ${env:STAGING_DB_MIN_POOL}
+    STAGING_DB_MAX_POOL: ${env:STAGING_DB_MAX_POOL}
+    PRODUCTION_DB_MIN_POOL: ${env:PRODUCTION_DB_MIN_POOL}
+    PRODUCTION_DB_MAX_POOL: ${env:PRODUCTION_DB_MAX_POOL}
+    NODE_PATH: "./:/opt/node_modules"
+    NODE_ENV: ${env:NODE_ENV,'production'}
+    STACK_ID: ${env:STACK_ID}
+    ENABLE_DB_REPLICA: false
+
+package:
+  individually: true
+  excludeDevDependencies: false
+  exclude:
+    - "**/**"
+
+layers:
+  Socar:
+    path: main # required, path to layer contents on disk
+    name: ${self:provider.stage}-socar-main # optional, Deployed Lambda layer name
+    description: Socar test main layer # optional, Description to publish to AWS
+    compatibleRuntimes: # optional, a list of runtimes this layer is compatible with
+      - nodejs12.x
+    package:
+      include:
+        - 'node_modules/**'
+
+functions:
+  socar-app:
+    handler: modules/app.handler
+    environment:
+      ENABLE_DB_REPLICA: false
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    package:
+      include:
+        - modules/app.js
+    layers:
+      - { Ref: SocarLambdaLayer }
+  migrations:
+    handler: modules/migrations.handler
+    package:
+      include:
+        - modules/migrations.js
+    layers:
+      - { Ref: SocarLambdaLayer }
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-plugin-scripts

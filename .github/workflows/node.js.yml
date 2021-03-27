@@ -1,0 +1,59 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    env:
+      NODE_ENV: test
+      TEST_DB_CLIENT: pg
+      TEST_DB_HOST: localhost
+      TEST_DB_NAME: socar_test
+      TEST_DB_USER: nisalikularatne
+      TEST_DB_PASSWORD: nisalikularatne
+      KEY: some_key_here
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: socar_test
+          POSTGRES_PASSWORD: nisalikularatne
+          POSTGRES_USER: nisalikularatne
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install packages
+        run: |
+          git config --global url."https://${{ secrets.CI_ACCESS_TOKEN_2 }}@github.com/".insteadOf ssh://git@github.com/
+          npm i -g knex
+          npm i -g eslint
+          npm run resolve
+      - run: npm run reset
+      - run: npm run lint
+      - run: npm test
