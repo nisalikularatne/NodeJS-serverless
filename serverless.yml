@@ -32,8 +32,6 @@ provider:
     DEV_DB_NAME: ${env:DEV_DB_NAME}
     DEV_DB_USER: ${env:DEV_DB_USER}
     DEV_DB_PASSWORD: ${env:DEV_DB_PASSWORD}
-    DEV_DB_MIN_POOL: ${env:DEV_DB_MIN_POOL}
-    DEV_DB_MAX_POOL: ${env:DEV_DB_MAX_POOL}
     NODE_PATH: "./:/opt/node_modules"
     NODE_ENV: ${env:NODE_ENV,'production'}
     STACK_ID: ${env:STACK_ID}
