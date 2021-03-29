@@ -18,7 +18,6 @@ phases:
       - npm run resolve
   build:
     commands:
-      - serverless create_domain
       - sls deploy
       #post_build:
       #commands:
