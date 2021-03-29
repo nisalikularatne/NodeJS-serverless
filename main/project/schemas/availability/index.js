@@ -7,7 +7,7 @@ exports.create = {
             id: joi.any(),
             user_id: joi.number().required(),
             car_id: joi.number().positive().external(exist(Car, 'car_id', 'id')),
-            start_at: joi.date().iso().required(),
+            start_at: joi.date().iso().greater('now').required(),
             end_at: joi.date().iso().greater(joi.ref('start_at')).required()
         });
     }
