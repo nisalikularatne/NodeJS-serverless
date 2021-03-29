@@ -16,14 +16,14 @@ class Car extends Model {
     }
 
     static get relationMappings() {
-        const CarListing = require('@socar/socar-test/models/car_listing');
+        const CarAvailability = require('@socar/socar-test/models/car_availability');
         return {
-            carlistings: {
+            car_availability: {
                 relation: Model.BelongsToOneRelation,
-                modelClass: CarListing,
+                modelClass: CarAvailability,
                 join: {
                     from: 'cars.id',
-                    to: 'car_listings.car_id'
+                    to: 'car_availability.car_id'
                 }
             }
         };

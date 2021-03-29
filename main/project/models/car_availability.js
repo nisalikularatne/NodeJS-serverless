@@ -1,7 +1,7 @@
 const Model = require('./base');
 
-class User extends Model {
-    static tableName = 'users';
+class CarAvailability extends Model {
+    static tableName = 'car_availability';
 
     static getTableName() {
         return this.tableName;
@@ -18,16 +18,16 @@ class User extends Model {
     static get relationMappings() {
         const Car = require('@socar/socar-test/models/car');
         return {
-            cars: {
-                relation: Model.HasManyRelation,
+            car: {
+                relation: Model.HasOneRelation,
                 modelClass: Car,
                 join: {
-                    from: 'users.id',
-                    to: 'cars.user_id'
+                    from: 'car_availability.car_id',
+                    to: 'cars.id'
                 }
             }
         };
     }
 }
 
-module.exports = User;
+module.exports = CarAvailability;
