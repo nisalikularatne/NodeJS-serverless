@@ -9,7 +9,7 @@ let config = {
             user: ENV_VARS.DEV_DB_USER,
             password: ENV_VARS.DEV_DB_PASSWORD,
             min_pool: ENV_VARS.DEV_DB_MIN_POOL || 0,
-            max_pool: ENV_VARS.DEV_DP_MAX_POOL || 2
+            max_pool: ENV_VARS.DEV_DB_MAX_POOL || 2
         },
         test: {
             client: ENV_VARS.TEST_DB_CLIENT,
