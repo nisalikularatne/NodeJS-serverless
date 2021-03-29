@@ -21,6 +21,7 @@
     "http-status-codes": "^2.1.4",
     "json-api-serializer": "^2.6.0",
     "knex": "^0.21.12",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "objection": "^2.2.3",
     "pg": "^8.5.1",
