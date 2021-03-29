@@ -63,3 +63,6 @@ exports.getCar = async (req, res) => {
     res.status(HttpStatusCodes.OK);
     return getCarResponse;
 };
+exports.sample = async (req, res) => {
+    res.send('hi sample');
+};
