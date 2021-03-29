@@ -24,7 +24,7 @@ exports.create = {
 exports.getCars = {
     schema: () => {
         return joi.object().keys({
-            sort: joi.string().valid('availablity', 'created_at', 'is_manual', 'model', 'manufacturer', 'location', 'day_price', 'id').allow('').optional(),
+            sort: joi.string().valid('availability', 'created_at', 'is_manual', 'model', 'manufacturer', 'location', 'day_price', 'id').allow('').optional(),
             order: joi.string().valid('asc', 'desc').allow('').optional(),
             manufacturer: joi.string().optional(),
             model: joi.string().optional(),
