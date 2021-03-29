@@ -10,8 +10,7 @@ exports.getCarAvailability = async ({ car_id }) => {
     return CarAvailability.query().withGraphFetched('car').where('car_id', car_id).first().throwIfNotFound();
 };
 
-exports.update = (car_id, car_availablity = {}) => {
-    return CarAvailability.query()
-        .patchAndFetchById(car_id, { ...car_availablity, car_id })
-        .throwIfNotFound();
+exports.update = async (car_id, car_availablity = {}) => {
+    const updatedObject = await CarAvailability.query().findOne({ car_id }).throwIfNotFound();
+    return updatedObject.$query().patchAndFetch(car_availablity);
 };

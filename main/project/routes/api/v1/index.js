@@ -10,7 +10,7 @@ const apiV1Routes = express.Router(),
 apiV1Routes.post('/users', expressCallback(UserController.create));
 apiV1Routes.post('/users/login', expressCallback(UserController.login));
 apiV1Routes.get('/cars', expressCallback(CarController.getAll));
-apiV1Routes.use(tokenValidatorMiddleware);
+apiV1Routes.use(tokenValidatorMiddleware.authentication);
 apiV1Routes.post('/users/:user_id/cars', expressCallback(CarController.create));
 apiV1Routes.get('/users/:user_id/cars/:id', expressCallback(CarController.getCar));
 

@@ -58,7 +58,6 @@ exports.getAll = async (req, res) => {
 exports.getCar = async (req, res) => {
     const { id, user_id } = req.params;
     await authorization(req.user, user_id);
-
     await schemaValidator(CarSchema.getCar, { ...req.params });
     let getCarResponse = await CarService.getCar(id);
     res.status(HttpStatusCodes.OK);
