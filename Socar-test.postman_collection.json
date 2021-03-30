@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "814d6e22-a791-4386-9ca2-a5fcc038758d",
+		"name": "Socar-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "Create a car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"manufacturer\":\"benz\",\n    \"location\":\"bangsar\",\n    \"is_manual\":true,\n    \"day_price\":40,\n    \"is_available\":true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{production_site_url}}/api/v1/users/:user_id/cars",
+							"host": [
+								"{{production_site_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_id",
+								"cars"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_site_url}}/api/v1/cars?sort=created_at&order=asc&is_available=true&page=1&page_size=5",
+							"host": [
+								"{{production_site_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cars"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "created_at"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								},
+								{
+									"key": "manufacturer",
+									"value": "honda",
+									"disabled": true
+								},
+								{
+									"key": "is_manual",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "model",
+									"value": "732",
+									"disabled": true
+								},
+								{
+									"key": "is_available",
+									"value": "true"
+								},
+								{
+									"key": "minPrice",
+									"value": "99",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "120",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_site_url}}/api/v1/users/:user_id/cars/:id",
+							"host": [
+								"{{production_site_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_id",
+								"cars",
+								":id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "7"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Availability",
+			"item": [
+				{
+					"name": "Create a car availability",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start_at\":\"2018-10-10T10:00\",\n    \"end_at\":\"2019-10-10T10:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{production_site_url}}/api/v1/users/:user_id/cars/:car_id/availability",
+							"host": [
+								"{{production_site_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_id",
+								"cars",
+								":car_id",
+								"availability"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "3"
+								},
+								{
+									"key": "car_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List car availability",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJuaXNhbGkta3VsYXJhdG5lMyIsInVzZXJfaWQiOjMyLCJpYXQiOjE2MTcwMDA3NzIsImV4cCI6MTYxNzAwNDM3Mn0.-VU0fPnoqZ-QK3PPiXWe0CowMB4Xo-_VH-eaVuaLo9E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8007/api/v1/users/:user_id/cars/:car_id/availability",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8007",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_id",
+								"cars",
+								":car_id",
+								"availability"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								},
+								{
+									"key": "car_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car Availability",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start_at\":\"2021-10-10T10:00\",\n    \"end_at\":\"2021-12-10T10:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{production_site_url}}/api/v1/users/:user_id/cars/:car_id/availability",
+							"host": [
+								"{{production_site_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_id",
+								"cars",
+								":car_id",
+								"availability"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "7"
+								},
+								{
+									"key": "car_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"nisali-kularatne3\",\n    \"license_number\":\"new_license\",\n    \"location\":\"bangsar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8007/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8007",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login to get access token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"nisali-kularatne3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8007/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8007",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
